@@ -1,0 +1,43 @@
+{% extends 'salary_app/base.html' %}
+{% block body %}
+<form class="form-inline"  action="create" method="POST">
+    {% csrf_token %}
+    <div class="text-center">
+    <div class="form-group">
+        <label for="name">Student Name</label>
+        <input type="text" name="name" class="form-control"  required="required"/>
+        <label for="company">Compay Name</label>
+        <input type="text" name="company" class="form-control"  required="required"/>
+        <label for="salary">Salary (in Lakhs)</label>
+        <input type="text" name="salary" class="form-control"  required="required"/>
+        <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+    </div>
+    </div>
+</form>
+<br />
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th>Student Name</th>
+            <th>Company Name</th>
+            <th>Salary (in Lakhs)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.company }}</td>
+            <td>{{ student.salary }}</td>
+            <td><center><a class="btn btn-sm btn-warning" href="edit/{{ student.id }}">
+                        <span class="glyphicon glyphicon-edit"></span> Edit</a>
+                        <a class="btn btn-sm btn-danger" href="delete/{{ student.id }}">
+                          <span class="glyphicon glyphicon-trash"></span> Delete</a>
+                </center>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
